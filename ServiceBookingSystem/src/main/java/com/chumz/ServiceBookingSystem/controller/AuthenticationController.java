@@ -6,6 +6,8 @@ import com.chumz.ServiceBookingSystem.services.authentication.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,12 +16,23 @@ public class AuthenticationController {
     @Autowired
     private AuthService authService;
 
-    public ResponseEntity<?> signupClient(@ResponseBody SignupRequestDTO signupRequestDTO) {
+    @PostMapping("/client/sign-up")
+    public ResponseEntity<?> signupClient(@RequestBody SignupRequestDTO signupRequestDTO) {
         if(authService.presentByEmail(signupRequestDTO.getEmail())) {
             return new ResponseEntity<>("Client already exist with this email", HttpStatus.NOT_ACCEPTABLE);
         }
-        UserDto createUser = authService.signupClient(signupRequestDTO);
+        UserDto createdUser = authService.signupClient(signupRequestDTO);
 
-        return new ResponseEntity<>(createUser, HttpStatus.OK);
+        return new ResponseEntity<>(createdUser, HttpStatus.OK);
+    }
+
+    @PostMapping("/company/sign-up")
+    public ResponseEntity<?> signupCompany(@RequestBody SignupRequestDTO signupRequestDTO) {
+        if(authService.presentByEmail(signupRequestDTO.getEmail())) {
+            return new ResponseEntity<>("Company already exist with this email", HttpStatus.NOT_ACCEPTABLE);
+        }
+        UserDto createdUser = authService.signupClient(signupRequestDTO);
+
+        return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
 }

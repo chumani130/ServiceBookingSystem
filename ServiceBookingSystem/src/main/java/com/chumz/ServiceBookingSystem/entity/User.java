@@ -32,7 +32,7 @@ public class User {
         userDto.setName(name);
         userDto.setRole(role);
 
-        return userDto
+        return userDto;
 
 
     }

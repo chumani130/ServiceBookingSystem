@@ -2,9 +2,7 @@
     <div class="parent">
         <div class="child">
             <h1 style="margin-left: 55px">Client Signup</h1>
-        </div>
         <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        
             <nz-form-item>
                 <nz-form-control nzHasFeedback nzErrorTip="The input is not valid E-mail!">
                     <input nz-input placeholder="E-mail" formControlName="email" id="email"/>
@@ -12,7 +10,7 @@
             </nz-form-item>
             <nz-form-item>
                 <nz-form-control nzHasFeedback nzErrorTip="The input is not valid password!">
-                    <input nz-input type="password" formControlName="password" id="password"/>
+                    <input nz-input type="password" placeholder="Password" formControlName="password" id="password"/>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -20,8 +18,6 @@
                     <input nz-input type="password" placeholder="Confirm Password" formControlName="checkPassword" id="checkPassword"/>
                 </nz-form-control>
             </nz-form-item>
-
-
             <nz-form-item>
                 <nz-form-control nzHasFeedback nzErrorTip="The input is not valid name!">
                     <input nz-input placeholder="name" formControlName="name" id="name"/>
@@ -37,13 +33,11 @@
                     <input nz-input placeholder="phone" formControlName="phone" id="phone"/>
                 </nz-form-control>
             </nz-form-item>
-            <button nz-button class="Login-form-button login-form-margin" [nzType]="'primary'">
+            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">
                 Register
             </button>
-
             Or <a routerLink="/login">Login mow!</a>
-            
-
         </form>
+    </div>
     </div>
 </div>

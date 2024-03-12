@@ -7,5 +7,7 @@ public interface AuthService {
 
     UserDto signupClient(SignupRequestDTO signupRequestDTO);
 
+    UserDto signupCompany(SignupRequestDTO signupRequestDTO);
+
     Boolean presentByEmail(String email);
 }

@@ -20,6 +20,6 @@ public class AuthenticationController {
         }
         UserDto createUser = authService.signupClient(signupRequestDTO);
 
-        return new ResponseEntity<>(createdUser, HttpStatus.OK)
+        return new ResponseEntity<>(createUser, HttpStatus.OK);
     }
 }

@@ -3,9 +3,11 @@ package com.chumz.ServiceBookingSystem.controller;
 import com.chumz.ServiceBookingSystem.dto.SignupRequestDTO;
 import com.chumz.ServiceBookingSystem.dto.UserDto;
 import com.chumz.ServiceBookingSystem.services.authentication.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     @Autowired
     private AuthService authService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    public static final String HEADER_STRING = "Authorization";
 
     @PostMapping("/client/sign-up")
     public ResponseEntity<?> signupClient(@RequestBody SignupRequestDTO signupRequestDTO) {
@@ -34,5 +42,9 @@ public class AuthenticationController {
         UserDto createdUser = authService.signupClient(signupRequestDTO);
 
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
+    }
+
+    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) {
+
     }
 }

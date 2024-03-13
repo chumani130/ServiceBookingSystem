@@ -1,13 +1,18 @@
 package com.chumz.ServiceBookingSystem.controller;
 
+import com.chumz.ServiceBookingSystem.dto.AuthenticationRequest;
 import com.chumz.ServiceBookingSystem.dto.SignupRequestDTO;
 import com.chumz.ServiceBookingSystem.dto.UserDto;
+import com.chumz.ServiceBookingSystem.repository.UserRepository;
 import com.chumz.ServiceBookingSystem.services.authentication.AuthService;
+import com.chumz.ServiceBookingSystem.services.jwt.UserDetailsServiceImpl;
+import com.chumz.ServiceBookingSystem.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +24,13 @@ public class AuthenticationController {
     private AuthService authService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private UserRepository userRepository;
+
 
     public static final String TOKEN_PREFIX = "Bearer ";
 
@@ -44,7 +56,13 @@ public class AuthenticationController {
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
 
-    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) {
+    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
+                                          HttpServletResponse response) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getUsername()
+            ))
+        }
 
     }
 }

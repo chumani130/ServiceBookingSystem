@@ -58,11 +58,12 @@ public class AuthenticationController {
         if(authService.presentByEmail(signupRequestDTO.getEmail())) {
             return new ResponseEntity<>("Company already exist with this email", HttpStatus.NOT_ACCEPTABLE);
         }
-        UserDto createdUser = authService.signupClient(signupRequestDTO);
+        UserDto createdUser = authService.signupCompany(signupRequestDTO);
 
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
 
+    @PostMapping({"/authenticate"})
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
                                           HttpServletResponse response) throws IOException, JSONException {
         try {
@@ -87,6 +88,8 @@ public class AuthenticationController {
         response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader("Access-Control-Allow-Headers", "Authorization" +
                 " X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
+
+        response.addHeader(HEADER_STRING, TOKEN_PREFIX+jwt);
 
     }
 }

@@ -84,5 +84,9 @@ public class AuthenticationController {
                 .toString()
         );
 
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.addHeader("Access-Control-Allow-Headers", "Authorization" +
+                " X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header");
+
     }
 }

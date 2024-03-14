@@ -29,7 +29,7 @@ import java.io.IOException;
 public class AuthenticationController {
     @Autowired
     private AuthService authService;
-    @Autowired
+
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
